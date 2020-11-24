@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HCS.Views.SettingsPage"
+             xmlns:vm="clr-namespace:HCS.ViewModels"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+		<vm:SettingsViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#2196F3</Color>
+            <Color x:Key="Accent">#96d1ff</Color>
+            <Color x:Key="LightTextColor">#999999</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+	<StackLayout Orientation="Vertical" Padding="10" Spacing="10">
+		<Grid VerticalOptions="Start" Padding="15">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50" />
+				<RowDefinition Height="50" />
+				<RowDefinition Height="50" />
+			</Grid.RowDefinitions>
+			
+			<StackLayout Grid.Row="0">
+				<StackLayout.GestureRecognizers>
+					<TapGestureRecognizer 
+							Tapped="TapGas"
+							NumberOfTapsRequired="1" />
+				</StackLayout.GestureRecognizers>
+				<Label FontSize="18">
+					<Label.FormattedText>
+						<FormattedString>
+							<FormattedString.Spans>
+								<Span Text="{Binding Items.Gas.Name}" d:Text="Газ:" FontAttributes="Bold" FontSize="18" />
+								<Span Text="  " FontSize="18" />
+								<Span Text="{Binding Items.Gas.Value}" d:Text="2.367" FontSize="16" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="16" />
+								<Span Text="   (за 1м³)" FontSize="12" FontAttributes="Italic"/>
+							</FormattedString.Spans>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+			</StackLayout>
+			<StackLayout Grid.Row="1" >
+				<StackLayout.GestureRecognizers>
+					<TapGestureRecognizer 
+							Tapped="TapWater"
+							NumberOfTapsRequired="1" />
+				</StackLayout.GestureRecognizers>
+				<Label FontSize="18">
+					<Label.FormattedText>
+						<FormattedString>
+							<FormattedString.Spans>
+								<Span Text="{Binding Items.Water.Name}" d:Text="Вода:" FontAttributes="Bold" FontSize="18" />
+								<Span Text="  " FontSize="18" />
+								<Span Text="{Binding Items.Water.Value}" d:Text="21.55" FontSize="16" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="16" />
+								<Span Text="   (за 1м³)" FontSize="12" FontAttributes="Italic"/>
+							</FormattedString.Spans>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+			</StackLayout>
+			<StackLayout Grid.Row="2" >
+				<StackLayout.GestureRecognizers>
+					<TapGestureRecognizer 
+							Tapped="TapHotWater"
+							NumberOfTapsRequired="1" />
+				</StackLayout.GestureRecognizers>
+				<Label FontSize="18">
+					<Label.FormattedText>
+						<FormattedString>
+							<FormattedString.Spans>
+								<Span Text="{Binding Items.HotWater.Name}" d:Text="Горячая вода:" FontAttributes="Bold" FontSize="18" />
+								<Span Text="  " FontSize="18" />
+								<Span Text="{Binding Items.HotWater.Value}" d:Text="35.16" FontSize="16" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="16" />
+								<Span Text="   (за 1м³)" FontSize="12" FontAttributes="Italic"/>
+							</FormattedString.Spans>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+			</StackLayout>
+			<StackLayout Grid.Row="3">
+				<StackLayout.GestureRecognizers>
+					<TapGestureRecognizer 
+							Tapped="TapElectricPower"
+							NumberOfTapsRequired="1" />
+				</StackLayout.GestureRecognizers>
+				<Label FontSize="18">
+					<Label.FormattedText>
+						<FormattedString>
+							<FormattedString.Spans>
+								<Span Text="{Binding Items.ElectricPower.Name}" d:Text="Электроэнергия" FontAttributes="Bold" FontSize="18" />
+								<Span Text=" (за 1 кВт в час)" FontAttributes="Italic, Bold" FontSize="16" />
+								<Span Text=":" FontAttributes="Bold" FontSize="18" />
+								<Span Text="&#x0a;"/>
+								<Span Text="до 150кВт:           " FontSize="14" />
+								<Span Text="{Binding Items.ElectricPower.Less150kW}" d:Text="0.8018" FontSize="14" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="14" />
+								<Span Text="&#x0a;"/>
+								<Span Text="свыше 150кВт:   " FontSize="14" />
+								<Span Text="{Binding Items.ElectricPower.Ower150kW}" d:Text="1.0904" FontSize="14" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="14" />
+								<Span Text="&#x0a;"/>
+								<Span Text="свыше 800кВт:   " FontSize="14" />
+								<Span Text="{Binding Items.ElectricPower.Ower800kW}" d:Text="2.6808" FontSize="14" ForegroundColor="{StaticResource LightTextColor}" />
+								<Span Text=" ₽" FontSize="14" />
+							</FormattedString.Spans>
+						</FormattedString>
+					</Label.FormattedText>
+				</Label>
+			</StackLayout>
+
+		</Grid>
+	</StackLayout>
+</ContentPage>

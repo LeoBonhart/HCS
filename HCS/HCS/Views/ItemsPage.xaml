@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:HCS.Models"
+			 mc:Ignorable="d"
+             x:Class="HCS.Views.ItemsPage"
+             Title="{Binding Title}"
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        
+    </ContentPage.ToolbarItems>
+
+	<StackLayout>
+		<Grid Padding="10" BackgroundColor="{StaticResource NavigationPrimary}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="170" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<StackLayout Grid.Column="0">
+				<Label Text="Услуга"
+				   FontAttributes="Bold"
+				   HorizontalOptions="Fill" 
+				   TextColor="White"
+				   LineBreakMode="NoWrap"
+				   Style="{DynamicResource ListItemTextStyle}"
+				   FontSize="18" />
+			</StackLayout>
+			<StackLayout Grid.Column="1" HorizontalOptions="End">
+				<Label Text="Разница"
+				   FontAttributes="Bold"
+				   TextColor="White"
+				   LineBreakMode="NoWrap"
+				   Style="{DynamicResource ListItemTextStyle}"
+				   FontSize="18" />
+			</StackLayout>
+			<StackLayout Grid.Column="2" HorizontalOptions="End">
+				<Label Text="Сумма"
+				   FontAttributes="Bold"
+				   TextColor="White"
+				   LineBreakMode="NoWrap"
+				   Style="{DynamicResource ListItemTextStyle}"
+				   FontSize="18" />
+			</StackLayout>
+		</Grid>
+		<ListView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                ItemSelected="OnItemSelected">
+            <d:ListView.ItemsSource>
+				<x:Array Type="{x:Type local:Item}">
+					<local:Item Text="Квартплата" Summ="283" ShowDifference="False" ShowSumm="True"/>
+					<local:Item Text="Электроэнергия" First="4812" Second="5123" Summ="296" ShowDifference="True" ShowSumm="True"/>
+					<local:Item Text="Природный газ" First="2540" Second="2578" Summ="90" ShowDifference="True" ShowSumm="True"/>
+					<local:Item Text="Вода/Стоки" First="1779" Second="1788" Summ="194" ShowDifference="True" ShowSumm="True"/>
+					<local:Item Text="Отопление" Summ="794" ShowDifference="False" ShowSumm="True"/>
+					<!--<local:Item Text="Горячая вода" ShowDifference="False" ShowSumm="False"/>-->
+					<local:Item Text="Вывоз мусора" Summ="49" ShowDifference="False" ShowSumm="True"/>
+                </x:Array>
+            </d:ListView.ItemsSource>
+            <ListView.ItemTemplate>
+				<DataTemplate x:DataType="local:Item">
+                    <ViewCell>
+						<Grid Padding="10">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="170" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<StackLayout Grid.Column="0" 
+										 VerticalOptions="Center" 
+										 Orientation="Vertical"
+							>
+								<Label Text="{Binding Text}"
+                                       LineBreakMode="NoWrap" 
+                                       Style="{DynamicResource ListItemTextStyle}" 
+                                       FontSize="16" />
+								<StackLayout Orientation="Horizontal" BackgroundColor="#eeeeee"
+											 HorizontalOptions="Start"
+											 Padding="8,2"
+											 IsVisible="{Binding ShowDifference}"
+								>
+									<Label Text="{Binding First}" 
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="13" />
+									<Label Text="➤"
+										   Margin="10,0"
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="13" />
+									<Label Text="{Binding Second}" 
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemDetailTextStyle}" 
+                                           FontSize="13" />
+								</StackLayout>
+							</StackLayout>
+							<StackLayout Grid.Column="1"
+										 VerticalOptions="Center" 
+										 Orientation="Vertical"
+										 HorizontalOptions="End"
+										 IsVisible="{Binding ShowDifference}"
+							>
+								<Label Text="{Binding Difference}"
+                                       LineBreakMode="NoWrap"
+									   FontAttributes="Bold"
+                                       Style="{DynamicResource ListItemTextStyle}" 
+                                       FontSize="16" />
+							</StackLayout>
+							<StackLayout Grid.Column="2"
+										 VerticalOptions="Center" 
+										 Orientation="Horizontal"
+										 HorizontalOptions="End"
+							>
+								<Label Text="{Binding Summ}" 
+                                       LineBreakMode="NoWrap"
+									   FontAttributes="Bold"
+                                       Style="{DynamicResource ListItemTextStyle}" 
+                                       FontSize="16" />
+								<Label Text="₽"
+									   FontAttributes="Bold"
+									   LineBreakMode="NoWrap"
+									   Style="{DynamicResource ListItemTextStyle}"
+									   FontSize="16" />
+							</StackLayout>
+						</Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+		<Grid Padding="10" BackgroundColor="#ffcdd2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="170" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<StackLayout Grid.Column="0">
+				<Label Text="Итого:"
+				       FontAttributes="Bold"
+				       HorizontalOptions="Fill" 
+				       LineBreakMode="NoWrap"
+				       Style="{DynamicResource ListItemTextStyle}"
+				       FontSize="18" />
+			</StackLayout>
+			<StackLayout Grid.Column="1" HorizontalOptions="End" Orientation="Horizontal">
+				<Label Text="{Binding Total}"
+					   d:Text="1706"
+					   FontAttributes="Bold"
+					   TextColor="#b71c1c"
+				       LineBreakMode="NoWrap"
+				       Style="{DynamicResource ListItemTextStyle}"
+				       FontSize="18" />
+				<Label Text="₽"
+					   FontAttributes="Bold"
+					   TextColor="#b71c1c"
+				       LineBreakMode="NoWrap"
+				       Style="{DynamicResource ListItemTextStyle}"
+				       FontSize="18" />
+			</StackLayout>
+		</Grid>
+    </StackLayout>
+    
+</ContentPage>
